@@ -39,13 +39,17 @@ ENV PATH $BASE_NODE_PATH/$NODE_VER/bin:$PATH
 RUN mkdir /run/php
 COPY nginx/default /etc/nginx/sites-available
 COPY supervisord /etc/supervisor/conf.d
-RUN sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.1/cli/php.ini && \
+RUN sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/cli/php.ini && \
+    sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/cli/php.ini && \
+    sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.1/cli/php.ini && \
     sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.1/cli/php.ini && \
     sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.1/fpm/php.ini && \
     sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.1/fpm/php.ini && \
     sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.1/fpm/php.ini && \
     sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.1/fpm/php.ini && \
-    sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini
+    sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini && \
+    sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/fpm/php.ini && \
+    sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/fpm/php.ini
     
 # Add our init script
 ADD run.sh /run.sh
