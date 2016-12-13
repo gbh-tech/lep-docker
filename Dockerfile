@@ -13,7 +13,7 @@ RUN apt-get update && \
     php7.1-imap php7.1-mysql php7.1-mbstring \
     php7.1-xml php7.1-zip php7.1-bcmath php7.1-soap \
     php7.1-intl php7.1-readline \
-  	nginx zip supervisor
+  	nginx zip supervisor git
 
 
 # Install Composer
