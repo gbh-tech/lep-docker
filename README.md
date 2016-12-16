@@ -12,7 +12,7 @@ RUN rm -fr /app/*
 # Copy our app into the app folder
 COPY . /app
 
-# Composer install 
+# Composer install
 ENV GITHUB_TOKEN <<the_token>>
 RUN composer config --global github-oauth.github.com $GITHUB_TOKEN
 RUN composer install --no-interaction
