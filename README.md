@@ -1,6 +1,7 @@
 # lep-docker
 Linux Nginx PHP docker image for Laravel
 
+*NOT FOR PRODUCTION*
 
 ## How to use (Sample Dockerfile)
 ```
