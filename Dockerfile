@@ -52,7 +52,9 @@ RUN sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/cli/ph
     sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.1/fpm/php.ini && \
     sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini && \
     sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/fpm/php.ini && \
-    sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/fpm/php.ini
+    sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/fpm/php.ini && \
+    sed -i "s/user = .*/user = root/" /etc/php/7.1/fpm/pool.d/www.conf && \
+    sed -i "s/group = .*/group = root/" /etc/php/7.1/fpm/pool.d/www.conf
     
 # Add our init script
 ADD run.sh /run.sh
