@@ -26,7 +26,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 
 # Install node, bower and gulp-cli
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash
-ENV NODE_VER v5.12.0
+ENV NODE_VER v6.11.1
 ENV NVM_DIR "/root/.nvm"
 RUN [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" \
     && nvm install $NODE_VER \
@@ -52,8 +52,9 @@ RUN sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/cli/ph
     sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.1/fpm/php.ini && \
     sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini && \
     sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/fpm/php.ini && \
+    sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.1/fpm/php.ini && \
     sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/fpm/php.ini
-    
+
 # Add our init script
 ADD run.sh /run.sh
 RUN chmod 755 /run.sh
