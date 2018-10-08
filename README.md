@@ -2,7 +2,14 @@
 
 Linux, Nginx, PHP Docker image for Laravel
 
-## NOT MEANT FOR PRODUCTION USE
+## General Details
+
+- Ubuntu Bionic
+- NVM v0.33.11
+- Node 8.11.4
+- PHP 7.1
+
+### NOT MEANT FOR PRODUCTION USE
 
 ## How To Use (Sample Dockerfile)
 
