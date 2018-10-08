@@ -1,13 +1,15 @@
-FROM ubuntu:trusty
+FROM ubuntu:bionic
 
-MAINTAINER Ignacio Canó <i.cano@gbh.com.do>
+LABEL maintainer="Angel Adames <a.adames@gbh.com.do>"
+
+ENV DEBIAN_FRONTEND noninteractive
 
 # Install Dependecies
 RUN apt-get update && \
-  apt-get install -y --force-yes software-properties-common curl && \
+  apt-get install -y software-properties-common curl && \
   apt-add-repository ppa:ondrej/php -y && \
   apt-get update && \
-	apt-get install -y --force-yes php7.1-fpm php7.1-cli php7.1-dev \
+	apt-get install -y php7.1-fpm php7.1-cli php7.1-dev \
     php7.1-pgsql php7.1-sqlite3 php7.1-gd \
     php7.1-curl php7.1-memcached \
     php7.1-imap php7.1-mysql php7.1-mbstring \
@@ -25,8 +27,8 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 
 
 # Install node, bower and gulp-cli
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash
-ENV NODE_VER v6.11.1
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+ENV NODE_VER v8.11.4
 ENV NVM_DIR "/root/.nvm"
 RUN [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" \
     && nvm install $NODE_VER \
