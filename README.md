@@ -1,10 +1,19 @@
-# lep-docker
-Linux Nginx PHP docker image for Laravel
+# LEP Docker
 
-*NOT FOR PRODUCTION*
+Linux, Nginx, PHP Docker image for Laravel
 
-## How to use (Sample Dockerfile)
-```
+## General Details
+
+- Ubuntu Bionic
+- NVM v0.33.11
+- Node 8.11.4
+- PHP 7.1
+
+### NOT MEANT FOR PRODUCTION USE
+
+## How To Use (Sample Dockerfile)
+
+```docker
 FROM solucionesgbh/lep:latest
 
 # Delete sample app
