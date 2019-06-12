@@ -5,8 +5,8 @@ Linux, Nginx, PHP Docker image for Laravel
 ## General Details
 
 - Ubuntu Bionic
-- NVM v0.33.11
-- Node 8.11.4
+- NVM v0.34.0
+- Node 10.16.0
 - PHP 7.1
 
 ### NOT MEANT FOR PRODUCTION USE
@@ -30,9 +30,9 @@ RUN composer install --no-interaction
 # NPM install if needed
 RUN npm install
 
-# Create our .env file (we use a commited file called .env.staging)
+# Create our .env file (we use a committed file called .env.staging)
 RUN cp .env.staging .env
 
-# Run our command (it runs chmod on our storage and cache folders aswell as php artisan migrate)
+# Run our command (it runs chmod on our storage and cache folders as well as php artisan migrate)
 CMD ["/run.sh"]
 ```
