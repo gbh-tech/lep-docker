@@ -1,3 +1,4 @@
+
 upstream php {
     server unix:/run/php/php7.1-fpm.sock;
 }
@@ -5,11 +6,11 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server ipv6only=on;
     
-    root /app/public;
+    root /app;
 
     client_max_body_size 100M;
 
-    index index.php index.html index.htm;
+    index index.php index.html;
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
