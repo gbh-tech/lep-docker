@@ -6,12 +6,14 @@ LABEL maintainer="Angel Adames <a.adames@gbh.com.do>"
 # Environment
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV PHP_VERSION 7.1
-
-ENV NVM_DIR /usr/local/bin/nvm
+ENV PHP_VERSION 7.2
+ENV NODE_VERSION 10.16.0
 ENV NVM_VERSION 0.34.0
 
-ENV NODE_VERSION 10.16.0
+ENV NVM_DIR /usr/local/nvm
+
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 # Update package list and upgrade available packages
 RUN apt update; apt upgrade -y
