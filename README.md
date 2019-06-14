@@ -33,6 +33,6 @@ RUN npm install
 # Create our .env file (we use a committed file called .env.staging)
 RUN cp .env.staging .env
 
-# Run our command (it runs chmod on our storage and cache folders as well as php artisan migrate)
+# Run our command (it runs chmod on our storage and cache folders)
 CMD ["/run.sh"]
 ```
