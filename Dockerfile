@@ -86,14 +86,14 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 
 # PHP CLI configuration
 RUN sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/${PHP_VERSION}/cli/php.ini && \
-  sed -i "s/ &&date.timezone.*/date.timezone = UTC/" /etc/php/${PHP_VERSION}/cli/php.ini && \
+  sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/${PHP_VERSION}/cli/php.ini && \
   sed -i "s/display_errors = .*/display_errors = On/" /etc/php/${PHP_VERSION}/cli/php.ini && \
   sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/${PHP_VERSION}/cli/php.ini
 
 # PHP FPM configuration
 RUN sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
   sed -i "s/display_errors = .*/display_errors = On/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
-  sed -i "s/ &&cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
+  sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
   sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
   sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
   sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
@@ -104,11 +104,11 @@ RUN rm /etc/nginx/sites-enabled/default && \
   rm /etc/nginx/sites-available/default
 
 # Add OpenSSL certificate authority configuration to PHP FPM
-RUN printf "[openssl]\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini; \
+RUN printf "[openssl]\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini && \
   printf "openssl.cainfo = /etc/ssl/certs/ca-certificates.crt\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini
 
 # Add cURL certificate authority configuration to PHP FPM
-RUN printf "[curl]\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini; \
+RUN printf "[curl]\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini && \
   printf "curl.cainfo = /etc/ssl/certs/ca-certificates.crt\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini
 
 # Add nginx and supervisor services configuration
