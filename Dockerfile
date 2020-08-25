@@ -116,6 +116,30 @@ COPY supervisord /etc/supervisor/conf.d
 # Enable default nginx configuration
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
+# Install GEOS
+WORKDIR /app
+
+RUN curl -s -O http://download.osgeo.org/geos/geos-3.6.1.tar.bz2
+RUN tar -xjvf geos-3.6.1.tar.bz2
+
+WORKDIR /app/geos-3.6.1
+RUN ./configure --enable-php
+RUN make
+RUN make install
+
+WORKDIR /app
+RUN ldconfig
+RUN apt update && apt install wget -y
+RUN wget https://git.osgeo.org/gogs/geos/php-geos/archive/master.tar.gz
+RUN ls
+RUN tar -zxvf master.tar.gz
+
+WORKDIR /app/php-geos
+RUN ./autogen.sh
+RUN ./configure
+RUN make
+RUN make install
+
 # Clean up image
 RUN apt autoremove -y && \
     apt clean -y
