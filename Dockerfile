@@ -140,6 +140,10 @@ RUN ./configure
 RUN make
 RUN make install
 
+# Cleaning
+WORKDIR /app
+RUN rm * -r
+
 # Clean up image
 RUN apt autoremove -y && \
     apt clean -y
