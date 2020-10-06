@@ -4,7 +4,7 @@ LABEL maintainer="Angel Adames <a.adames@gbh.com.do>"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV PHP_VERSION 7.1
-ENV NODE_VERSION 8.11.4
+ENV NODE_VERSION v8.11.4
 ENV NVM_VERSION 0.33.11
 
 # Install Dependecies
