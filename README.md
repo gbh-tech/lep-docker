@@ -2,7 +2,7 @@
 
 LEP Docker is a Linux, Nginx and PHP (with Node and Composer) Docker image for Laravel-like applications!
 
-**NOT MEANT FOR PRODUCTION USE**
+## NOT MEANT FOR PRODUCTION USE**
 
 ## General Details
 
