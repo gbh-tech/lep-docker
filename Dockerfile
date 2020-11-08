@@ -1,11 +1,11 @@
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 # Maintainer
 LABEL maintainer="Angel Adames <a.adames@gbh.com.do>"
 
 # Environment
 ENV DEBIAN_FRONTEND noninteractive
-ENV PHP_VERSION 7.3
+ENV PHP_VERSION 7.4
 
 # Update package list and upgrade available packages
 RUN apt update &&\
@@ -20,7 +20,7 @@ RUN apt-add-repository ppa:nginx/stable -y && \
     apt-add-repository ppa:ondrej/php -y && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    curl -sL https://deb.nodesource.com/setup_10.x | bash -
+    curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 # Update package lists again
 RUN apt update && \
@@ -74,12 +74,12 @@ RUN apt install -y \
 
 # Update package alternatives
 RUN update-alternatives --set php /usr/bin/php${PHP_VERSION} && \
-  update-alternatives --set php-config /usr/bin/php-config${PHP_VERSION} && \
-  update-alternatives --set phpize /usr/bin/phpize${PHP_VERSION}
+    update-alternatives --set php-config /usr/bin/php-config${PHP_VERSION} && \
+    update-alternatives --set phpize /usr/bin/phpize${PHP_VERSION}
 
 # Install Composer package manager
-RUN curl -sS https://getcomposer.org/installer | php && \
-  mv composer.phar /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+    --install-dir=/usr/local/bin --filename=composer
 
 # PHP CLI & FPM configuration
 RUN sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/${PHP_VERSION}/cli/php.ini && \
@@ -116,47 +116,15 @@ COPY supervisord /etc/supervisor/conf.d
 # Enable default nginx configuration
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-# Install GEOS
-WORKDIR /app
-
-RUN curl -s -O http://download.osgeo.org/geos/geos-3.6.1.tar.bz2
-RUN tar -xjvf geos-3.6.1.tar.bz2
-
-WORKDIR /app/geos-3.6.1
-RUN ./configure --enable-php
-RUN make
-RUN make install
-
-WORKDIR /app
-RUN ldconfig
-RUN apt update && apt install wget -y
-RUN wget https://git.osgeo.org/gogs/geos/php-geos/archive/master.tar.gz
-RUN ls
-RUN tar -zxvf master.tar.gz
-
-WORKDIR /app/php-geos
-RUN ./autogen.sh
-RUN ./configure
-RUN make
-RUN make install
-
-# Cleaning
-WORKDIR /app
-RUN rm * -r
+# Copy scripts
+RUN mkdir -p /scripts
+COPY scripts scripts
 
 # Clean up image
-RUN apt autoremove -y && \
-    apt clean -y
-
-# Add run.sh script
-COPY scripts/run.sh /run.sh
-RUN chmod 755 /run.sh && \
-    mkdir -p /run/php
-
-# Set working directory
 WORKDIR /app
+RUN apt autoremove -yq && apt clean -yq
 
 # Expose default HTTP port
 EXPOSE 80
 
-CMD ["/run.sh"]
+CMD ["/usr/bin/supervisord", "--nodaemon", "-c", "/etc/supervisor/supervisord.conf"]

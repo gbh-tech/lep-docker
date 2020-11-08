@@ -2,26 +2,26 @@
 
 LEP Docker is a Linux, Nginx and PHP (with Node and Composer) Docker image for Laravel-like applications!
 
-**NOT MEANT FOR PRODUCTION USE**
+> This is image is not production ready. It is advised to only use it on local development environments.
 
-## General Details
+## General details
 
-- OS: Ubuntu Bionic
-- Node 10.x
-- PHP 7.3
-- Default user for Nginx (www-data)
+- OS: Ubuntu Focal
+- Node 12.x
+- PHP 7.4
+- Default user for nginx (www-data)
 
-## How To Use (Sample Dockerfile)
+## How to use
+
+### Sample Dockerfile
 
 ```docker
-FROM solucionesgbh/lep:latest
+FROM solucionesgbh/lep:7.4
 
 # Copy your App into the /app folder.
 COPY . /app
 
 # Composer install.
-ENV GITHUB_TOKEN <<the_token>>
-RUN composer config --global github-oauth.github.com $GITHUB_TOKEN
 RUN composer install --no-interaction
 
 # Install node dependencies if needed (npm, yarn).
@@ -31,7 +31,23 @@ RUN npm install
 # Create your .env file
 COPY .env.example .env
 
-# Run our initialization command.
 # It ensures permissions of app folders and executes supervisor for nginx and php-fpm.
-CMD ["/run.sh"]
+RUN /scripts/fix-permissions.sh
+```
+
+### Build & run
+
+To build it:
+
+```shell
+docker build . -t myapp:myversion
+```
+
+To run it:
+
+```shell
+docker run \
+  --name myAppContainer \
+  -p "${myPublishedPort}:80" \
+  myapp:myversion
 ```

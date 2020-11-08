@@ -1,11 +1,11 @@
 
 upstream php {
-    server unix:/run/php/php7.3-fpm.sock;
+    server unix:/run/php/php7.4-fpm.sock;
 }
 server {
     listen 80 default_server;
-    
-    root /app;
+
+    root /app/public;
 
     client_max_body_size 15M;
 
