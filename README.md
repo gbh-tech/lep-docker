@@ -8,7 +8,7 @@ LEP Docker is a Linux, Nginx and PHP (with Node and Composer) Docker image for L
 
 - OS: Ubuntu Focal
 - Node 12.x
-- PHP 7.4
+- PHP 7.2
 - Default user for nginx (www-data)
 
 ## How to use
