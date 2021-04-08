@@ -1,6 +1,6 @@
 
 upstream php {
-    server unix:/run/php/php7.4-fpm.sock;
+    server unix:/run/php/php7.2-fpm.sock;
 }
 server {
     listen 80 default_server;
