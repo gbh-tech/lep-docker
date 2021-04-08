@@ -16,7 +16,7 @@ LEP Docker is a Linux, Nginx and PHP (with Node and Composer) Docker image for L
 ### Sample Dockerfile
 
 ```docker
-FROM solucionesgbh/lep:7.4
+FROM solucionesgbh/lep:7.2
 
 # Copy your App into the /app folder.
 COPY . /app
