@@ -6,6 +6,7 @@ LABEL maintainer="Angel Adames <a.adames@gbh.com.do>"
 # Environment
 ENV DEBIAN_FRONTEND noninteractive
 ENV PHP_VERSION 7.3
+ENV NODE_VERSION 12.x
 
 # Update package list and upgrade available packages
 RUN apt update &&\
@@ -18,9 +19,7 @@ RUN apt update &&\
 # Add PPAs and repositories
 RUN apt-add-repository ppa:nginx/stable -y && \
     apt-add-repository ppa:ondrej/php -y && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    curl -sL https://deb.nodesource.com/setup_12.x | bash -
+    curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
 
 # Update package lists again
 RUN apt update && \
@@ -35,8 +34,7 @@ RUN apt update && \
       nodejs \
       software-properties-common \
       supervisor \
-      vim \
-      yarn
+      vim
 
 # Configure locale and timezone
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale && \
@@ -47,7 +45,6 @@ RUN apt install -yq \
     --allow-downgrades \
     --allow-remove-essential \
     --allow-change-held-packages \
-    php${PHP_VERSION}-bcmath \
     php${PHP_VERSION}-cli \
     php${PHP_VERSION}-curl \
     php${PHP_VERSION}-dev \
@@ -55,7 +52,6 @@ RUN apt install -yq \
     php${PHP_VERSION}-gd \
     php${PHP_VERSION}-imap \
     php${PHP_VERSION}-mbstring \
-    php${PHP_VERSION}-memcached \
     php${PHP_VERSION}-mysql \
     php${PHP_VERSION}-pgsql \
     php${PHP_VERSION}-readline \
@@ -101,6 +97,7 @@ RUN printf "[openssl]\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini && \
 # Add nginx and supervisor services configuration
 COPY nginx/default /etc/nginx/sites-available
 COPY supervisord /etc/supervisor/conf.d
+RUN mkdir -p /run/php
 
 # Enable default nginx configuration
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
