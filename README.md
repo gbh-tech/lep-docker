@@ -7,7 +7,7 @@ LEP comes from the original LAMP stack which was based on Linux, Apache, MySQL a
 ## Included dependencies
 
 - Ubuntu Focal
-- Nodejs 12.x
+- Nodejs 14.x
 - Git
 - Nginx
 - PHP (7.3)
