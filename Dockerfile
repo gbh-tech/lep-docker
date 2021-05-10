@@ -5,7 +5,7 @@ LABEL maintainer="Angel Adames <a.adames@gbh.com.do>"
 
 # Environment
 ENV DEBIAN_FRONTEND noninteractive
-ENV PHP_VERSION 7.3
+ENV PHP_VERSION 7.4
 ENV NODE_VERSION 14.x
 
 # Update package list and upgrade available packages

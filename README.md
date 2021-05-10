@@ -10,7 +10,7 @@ LEP comes from the original LAMP stack which was based on Linux, Apache, MySQL a
 - Nodejs 14.x
 - Git
 - Nginx
-- PHP (7.3)
+- PHP (7.4)
   - php-cli
   - php-curl
   - php-dev
@@ -33,7 +33,7 @@ LEP comes from the original LAMP stack which was based on Linux, Apache, MySQL a
 To use this image, you should set it as your base image using the `FROM` instruction:
 
 ```docker
-FROM solucionesgbh/lep:7.3-node12
+FROM solucionesgbh/lep:7.4-node12
 
 # Copy your app into the /app folder
 WORKDIR /app
