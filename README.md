@@ -54,3 +54,22 @@ RUN chown -R www-data:www-data .
 # You can just leave this out and it will use the base image default
 CMD ["/usr/bin/supervisord", "--nodaemon", "-c", "/etc/supervisor/supervisord.conf"]
 ```
+
+## Build your image
+
+To build your custom image, on your terminal execute the following `docker build` command:
+
+```shell
+docker build . -t myapp:myversion
+```
+
+## Run your app
+
+To run your custom container, on your terminal execute the following `docker run` command:
+
+```shell
+docker run \
+  --name myAppContainer \
+  -p "${myPublishedPort}:80" \
+  myapp:myversion
+```
