@@ -5,16 +5,15 @@ LABEL maintainer="Angel Adames <a.adames@gbh.com.do>"
 
 # Environment
 ENV DEBIAN_FRONTEND noninteractive
-ENV PHP_VERSION 7.4
+ENV PHP_VERSION 7.1
 ENV NODE_VERSION 14.x
 
 # Update package list and upgrade available packages
-RUN apt update &&\
-    apt upgrade -y && \
-    apt install -y \
-      software-properties-common \
-      ca-certificates \
-      curl
+RUN apt update && apt upgrade -yq && \
+    apt install -yq \
+    curl \
+    locales \
+    software-properties-common
 
 # Add PPAs and repositories
 RUN apt-add-repository ppa:nginx/stable -y && \
@@ -22,23 +21,17 @@ RUN apt-add-repository ppa:nginx/stable -y && \
     curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
 
 # Update package lists again
-RUN apt update && \
-    apt install --fix-missing -y \
-      apt-utils \
-      bash-completion \
-      build-essential \
-      cifs-utils \
-      curl \
-      git \
-      nginx \
-      nodejs \
-      software-properties-common \
-      supervisor \
-      vim
+RUN apt update && apt install --fix-missing -y \
+    build-essential \
+    git \
+    nginx \
+    nodejs \
+    supervisor \
+    vim
 
 # Configure locale and timezone
-RUN echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale && \
-    ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
 
 # PHP and PHP dependencies installation
 RUN apt install -yq \
@@ -50,7 +43,6 @@ RUN apt install -yq \
     php${PHP_VERSION}-dev \
     php${PHP_VERSION}-fpm \
     php${PHP_VERSION}-gd \
-    php${PHP_VERSION}-imap \
     php${PHP_VERSION}-mbstring \
     php${PHP_VERSION}-mysql \
     php${PHP_VERSION}-pgsql \
@@ -84,26 +76,17 @@ RUN sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/${PHP_VERS
     echo "xdebug.max_nesting_level = 512" >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
     echo "opcache.revalidate_freq = 0" >> /etc/php/${PHP_VERSION}/mods-available/opcache.ini
 
-# Remove Nginx default configuration file
+# Add nginx and supervisor services configuration
 RUN rm /etc/nginx/sites-enabled/default && \
     rm /etc/nginx/sites-available/default
-
-# Add OpenSSL certificate authority configuration to PHP FPM
-RUN printf "[openssl]\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini && \
-    printf "openssl.cainfo = /etc/ssl/certs/ca-certificates.crt\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini && \
-    printf "[curl]\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini && \
-    printf "curl.cainfo = /etc/ssl/certs/ca-certificates.crt\n" | tee -a /etc/php/${PHP_VERSION}/fpm/php.ini
-
-# Add nginx and supervisor services configuration
 COPY nginx/default /etc/nginx/sites-available
-COPY supervisord /etc/supervisor/conf.d
-RUN mkdir -p /run/php
-
-# Enable default nginx configuration
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+RUN mkdir -p /run/php
+COPY supervisord /etc/supervisor/conf.d
 
 # Clean up image
-RUN apt autoremove -y && \
+RUN rm -rf /var/lib/apt/lists/* && \
+    apt autoremove -y && \
     apt clean -y
 
 # Set working directory

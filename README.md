@@ -33,7 +33,7 @@ LEP comes from the original LAMP stack which was based on Linux, Apache, MySQL a
 To use this image, you should set it as your base image using the `FROM` instruction:
 
 ```docker
-FROM solucionesgbh/lep:7.4-node12
+FROM solucionesgbh/lep:${PHP_VERSION}
 
 # Copy your app into the /app folder
 WORKDIR /app
@@ -41,14 +41,14 @@ COPY . .
 
 # Install your dependencies
 RUN composer install --no-interaction
-RUN npm install
+RUN npm ci
 
 # Configure your environment seetings
-COPY path/to/your/example/.env .env
-COPY path/to/your/example/local-config.php local-config.php
+COPY --chown=www-data:www-data path/to/your/example/.env .env
+COPY --chown=www-data:www-data path/to/your/example/local-config.php local-config.php
 
 # Ensures permissions of the app folder are set to www-data
-RUN chown -R www-data:www-data .
+COPY --chown=www-data:www-data .
 
 # Optional: Specify the supervisord command
 # You can just leave this out and it will use the base image default
