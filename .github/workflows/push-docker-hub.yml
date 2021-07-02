@@ -14,29 +14,33 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build and push
+      - name: Build and push 7.4
         uses: docker/build-push-action@v2
         with:
           context: ./7.4
+          no-cache: true
           push: true
           tags: |
             solucionesgbh/lep:main
             solucionesgbh/lep:7.4
-      - name: Build and push
+      - name: Build and push 7.3
         uses: docker/build-push-action@v2
         with:
           context: ./7.3
+          no-cache: true
           push: true
           tags: solucionesgbh/lep:7.3
-      - name: Build and push
+      - name: Build and push 7.2
         uses: docker/build-push-action@v2
         with:
           context: ./7.2
+          no-cache: true
           push: true
           tags: solucionesgbh/lep:7.2
-      - name: Build and push
+      - name: Build and push 7.1
         uses: docker/build-push-action@v2
         with:
           context: ./7.1
+          no-cache: true
           push: true
           tags: solucionesgbh/lep:7.1
