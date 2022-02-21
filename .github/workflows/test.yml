@@ -1,0 +1,38 @@
+name: build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on:
+      - ubuntu-latest
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
+    steps:
+      - name: Check out current proejct revision
+        uses: actions/checkout@v2
+
+      - name: Build docker file for 7.4
+        run: docker build .
+             --build-arg PHP_VERSION=7.4
+             --tag lep/php:7.3
+
+      - name: Build docker file for 8.0
+        run: docker build .
+             --build-arg PHP_VERSION=8.0
+             --tag lep/php:8.0
+
+      - name: Build docker file for 8.1
+        run: docker build .
+             --build-arg PHP_VERSION=8.1
+             --tag lep/php:8.1
+
+      - name: Cleanup
+        run: |
+          docker image rm lep/php:7.4
+          docker image rm lep/php:8.0
+          docker image rm lep/php:8.1
