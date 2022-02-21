@@ -1,0 +1,23 @@
+name: push
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - 20[2-9][0-9][0-1][0-9][0-3][0-9]-[0-9][0-9]
+
+jobs:
+  push_to_docker_hub:
+    runs-on: ubuntu-latest
+    uses: ./.github/workflows/base.yml
+    strategy:
+      matrix:
+        php_versions: ['7.4', '8.0', '8.1']
+    with:
+      php_version: ${{ matrix.php_versions }}
+      date: "$GITHUB_REF_NAME"
+    secrets:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}

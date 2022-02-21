@@ -1,0 +1,28 @@
+name: build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on:
+      - ubuntu-latest
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
+    strategy:
+      matrix:
+        php_versions: ['7.4', '8.0', '8.1']
+    steps:
+      - name: Check out current proejct revision
+        uses: actions/checkout@v2
+
+      - name: Build docker file
+        run: docker build .
+             --build-arg PHP_VERSION="${{ matrix.php_versions }}"
+             --tag lep/php:"${{ matrix.php_versions }}"
+
+      - name: Cleanup
+        run: docker image rm lep/php:"${{ matrix.php_versions }}"
