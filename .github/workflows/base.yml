@@ -1,0 +1,44 @@
+name: build_and_push
+
+on:
+  workflow_call:
+    inputs:
+      php_version:
+        default: '7.4'
+        type: string
+      date:
+        type: string
+    secrets:
+      docker_username:
+        required: true
+      docker_password:
+        required: true
+
+env:
+  ANSIBLE_FORCE_COLOR: '1'
+  PY_COLORS: '1'
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
+    steps:
+      - name: Check out current proejct revision
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.docker_username }}
+          password: ${{ secrets.docker_password }}
+
+      - name: Build dockerfile and push to DockerHub!
+        uses: docker/build-push-action@v2
+        with:
+          no-cache: true
+          push: true
+          tags: |
+            solucionesgbh/lep/${{ inputs.php_version }}
+            solucionesgbh/lep/${{ inputs.php_version }}:${{ inputs.date }}
