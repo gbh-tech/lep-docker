@@ -18,9 +18,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3008
 RUN apt-get update -yq \
 &&  apt-get install --no-install-recommends -yq \
-    software-properties-common \
     apt-utils \
     curl \
+    software-properties-common \
 &&  apt-add-repository ppa:nginx/stable -y \
 &&  apt-add-repository ppa:ondrej/php -y \
 &&  curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
@@ -31,8 +31,6 @@ RUN apt-get update -yq \
     locales  \
     nginx  \
     nodejs \
-    supervisor \
-    vim \
     php${PHP_VERSION}-cli \
     php${PHP_VERSION}-curl \
     php${PHP_VERSION}-dev \
@@ -44,6 +42,10 @@ RUN apt-get update -yq \
     php${PHP_VERSION}-readline \
     php${PHP_VERSION}-xml \
     php${PHP_VERSION}-zip \
+    supervisor \
+    vim \
+&&  locale-gen en_US.UTF-8 \
+&&  dpkg-reconfigure locales \
 &&  mkdir -p /run/php \
 &&  update-alternatives --set php /usr/bin/php${PHP_VERSION} \
 &&  update-alternatives --set php-config /usr/bin/php-config${PHP_VERSION} \
