@@ -32,4 +32,4 @@ jobs:
           push: true
           tags: |
             solucionesgbh/lep:${{ matrix.php_versions }}
-            solucionesgbh/lep:${{ matrix.php_versions }}-${GITHUB_REF_NAME}
+            solucionesgbh/lep:${{ matrix.php_versions }}-${{ env.GITHUB_REF_NAME }}
