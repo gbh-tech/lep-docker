@@ -62,7 +62,7 @@ RUN apt-get update -yq \
 &&  rm -rf /var/lib/apt/lists/*
 
 # hadolint ignore=DL3022
-COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
 COPY nginx/site.conf /etc/nginx/sites-enabled/site.conf
 COPY supervisor /etc/supervisor/conf.d
