@@ -34,6 +34,8 @@ jobs:
         with:
           no-cache: true
           push: true
+          build-args: |
+            PHP_VERSION=${{ matrix.php_versions }}
           tags: |
             solucionesgbh/lep:${{ matrix.php_versions }}
             solucionesgbh/lep:${{ matrix.php_versions }}
