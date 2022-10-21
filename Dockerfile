@@ -16,16 +16,16 @@ ENV LC_ALL en_US.UTF-8
 # We accept the risk of installing system dependencies with
 # apt without specifying their versions.
 # hadolint ignore=DL3008
-RUN apt update -yq && \
-    apt install --no-install-recommends -yq \
+RUN apt-get update -yq && \
+    apt-get install --no-install-recommends -yq \
     apt-utils \
     curl \
     software-properties-common && \
     apt-add-repository ppa:nginx/stable -y && \
     apt-add-repository ppa:ondrej/php -y && \
     curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - && \
-    apt update -yq && \
-    apt install --no-install-recommends -yq \
+    apt-get update -yq && \
+    apt-get install --no-install-recommends -yq \
     build-essential \
     git \
     locales  \
