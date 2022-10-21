@@ -1,6 +1,8 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 LABEL maintainer="GBH DevOps Team <devops@gbh.com.do>"
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG PHP_VERSION=7.4
 
@@ -10,8 +12,6 @@ ENV NODE_VERSION 14.x
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # We accept the risk of installing system dependencies with
 # apt-get without specifying their versions.
