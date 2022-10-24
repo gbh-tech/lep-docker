@@ -18,9 +18,7 @@ jobs:
           - '7.4'
           - '8.0'
           - '8.1'
-          # We are temporarily adding 7.1 due to a managed legacy application
-          # which only runs on PHP7.1.
-          - '7.1'
+
     steps:
       - name: Check out current proejct revision
         uses: actions/checkout@v3

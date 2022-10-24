@@ -70,7 +70,7 @@ COPY supervisor /etc/supervisor/conf.d
 # PHP_VERSION is an ARG, even if 7.4 is the default we want
 # to make sure we use the specified version here.
 RUN sed -i "s/7.4/${PHP_VERSION}/" /etc/nginx/sites-enabled/site.conf \
-&&  sed -i "s/7.4/${PHP_VERSION}/" /etc/supervisor/conf.d/php-fpm.conf
+&&  sed -i "s/7.4/${PHP_VERSION}/g" /etc/supervisor/conf.d/php-fpm.conf
 
 WORKDIR /usr/app
 
