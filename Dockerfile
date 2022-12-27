@@ -43,6 +43,7 @@ RUN apt-get update -yq && \
     php${PHP_VERSION}-xml \
     php${PHP_VERSION}-zip \
     supervisor \
+    unzip \
     vim && \
     locale-gen en_US.UTF-8 && \
     dpkg-reconfigure locales && \
@@ -62,7 +63,7 @@ RUN apt-get update -yq && \
     rm -rf /var/lib/apt/lists/*
 
 # hadolint ignore=DL3022
-COPY --from=composer:2.4.3 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.4 /usr/bin/composer /usr/bin/composer
 
 COPY nginx/site.conf /etc/nginx/sites-enabled/site.conf
 COPY supervisor /etc/supervisor/conf.d
