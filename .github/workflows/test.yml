@@ -18,10 +18,9 @@ jobs:
           - '7.4'
           - '8.0'
           - '8.1'
-
     steps:
       - name: Check out current proejct revision
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build docker file
         run: docker build .
