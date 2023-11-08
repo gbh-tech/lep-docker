@@ -38,7 +38,7 @@ RUN apt-get update -yq && \
     curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | \
     tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null && \
     echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-    http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | \
+    http://nginx.org/packages/ubuntu $(lsb_release -cs) nginx" | \
     tee /etc/apt/sources.list.d/nginx.list && \
     echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | \
     tee /etc/apt/preferences.d/99nginx && \
@@ -72,7 +72,8 @@ RUN apt-get update -yq && \
     sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
     sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
     sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
-    sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/${PHP_VERSION}/fpm/php.ini
+    sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # hadolint ignore=DL3022
 COPY --from=composer:2.6.5 /usr/bin/composer /usr/bin/composer
