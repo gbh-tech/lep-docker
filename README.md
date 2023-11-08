@@ -1,15 +1,15 @@
-# LEP Docker
+# Docker images - LEP
 
-LEP comes from the original LAMP stack which was based on Linux, Apache, MySQL and PHP. LEP is a docker-oriented alternative that uses Nginx in favor Apache and separates the MySQL dependency since it can be configured as a service using docker compose.
+LEP comes from the original `LAMP` stack which was based on **L**inux, **A**pache, **M**ySQL and **P**HP. LEP is a docker-oriented alternative that uses Nginx in favor Apache and separates the MySQL dependency since it can be configured as a service using docker compose.
 
-**Important Note**: This image is not meant for production use. It was designed to serve as an auxiliary image for development and testing environments.
+> **Note**: This image is **not meant for production** use. It was designed to serve as an auxiliary image for development and testing environments.
 
 ## Included dependencies
 
-- Ubuntu Focal
-- Nodejs 14.x
-- Git
-- Nginx
+- Ubuntu Jammy
+- Node.js 14.x
+- git
+- nginx
 - PHP (7.4)
   - php-cli
   - php-curl
