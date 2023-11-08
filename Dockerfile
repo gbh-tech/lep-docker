@@ -1,13 +1,13 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 LABEL maintainer="GBH DevOps Team <devops@gbh.com.do>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ARG PHP_VERSION=8.0
+ARG PHP_VERSION=8.1
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV NODE_VERSION 14.x
+ENV NODE_VERSION 20.x
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
@@ -20,17 +20,30 @@ RUN apt-get update -yq && \
     apt-get install --no-install-recommends -yq \
     apt-utils \
     curl \
-    software-properties-common && \
-    apt-add-repository ppa:nginx/stable -y && \
-    apt-add-repository ppa:ondrej/php -y && \
-    curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - && \
-    apt-get update -yq && \
-    apt-get install --no-install-recommends -yq \
+    software-properties-common \
+    ca-certificates \
+    lsb-release \
+    apt-transport-https \
+    gnupg2 \
+    ca-certificates \
+    lsb-release \
     build-essential \
     git \
     locales  \
-    nginx  \
-    nodejs \
+    ubuntu-keyring && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_VERSION nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    add-apt-repository ppa:ondrej/php && \
+    curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | \
+    tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null && \
+    echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+    http://nginx.org/packages/ubuntu $(lsb_release -cs) nginx" | \
+    tee /etc/apt/sources.list.d/nginx.list && \
+    echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | \
+    tee /etc/apt/preferences.d/99nginx && \
+    apt-get update -yq && \
+    apt-get install --no-install-recommends -yq \
     php${PHP_VERSION}-cli \
     php${PHP_VERSION}-curl \
     php${PHP_VERSION}-dev \
@@ -44,7 +57,9 @@ RUN apt-get update -yq && \
     php${PHP_VERSION}-zip \
     supervisor \
     unzip \
-    vim && \
+    vim \
+    nodejs \
+    nginx && \
     locale-gen en_US.UTF-8 && \
     dpkg-reconfigure locales && \
     mkdir -p /run/php && \
@@ -58,12 +73,10 @@ RUN apt-get update -yq && \
     sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
     sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
     sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/${PHP_VERSION}/fpm/php.ini && \
-    rm /etc/nginx/sites-enabled/default && \
-    rm /etc/nginx/sites-available/default && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # hadolint ignore=DL3022
-COPY --from=composer:2.4 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.6.5 /usr/bin/composer /usr/bin/composer
 
 COPY nginx/site.conf /etc/nginx/sites-enabled/site.conf
 COPY supervisor /etc/supervisor/conf.d
