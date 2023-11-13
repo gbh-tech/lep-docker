@@ -41,4 +41,3 @@ jobs:
             PHP_VERSION=${{ matrix.php_versions }}
           tags: |
             solucionesgbh/lep:${{ matrix.php_versions }}
-            solucionesgbh/lep:latest
