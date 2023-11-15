@@ -20,7 +20,7 @@ LEP comes from the original `LAMP` stack which was based on **L**inux, **A**pach
 - Node.js 20.x
 - git
 - nginx
-- PHP (7.4)
+- PHP (7.4, 8.0, 8.1)
   - php-cli
   - php-curl
   - php-dev
