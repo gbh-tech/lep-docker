@@ -78,7 +78,7 @@ RUN apt-get update -yq && \
 # hadolint ignore=DL3022
 COPY --from=composer:2.6.5 /usr/bin/composer /usr/bin/composer
 
-COPY nginx/site.conf /etc/nginx/sites-enabled/site.conf
+COPY nginx/site.conf /etc/nginx/conf.d/site.conf
 COPY supervisor /etc/supervisor/conf.d
 
 # PHP_VERSION is an ARG, even if 7.4 is the default we want
