@@ -1,4 +1,4 @@
-name: build
+name: 🧪 Tests
 
 on:
   pull_request:
@@ -19,13 +19,13 @@ jobs:
           - '8.0'
           - '8.1'
     steps:
-      - name: Check out current proejct revision
+      - name: 💻 Check out current proejct revision
         uses: actions/checkout@v4
 
-      - name: Build docker file
+      - name: 🐋 Build docker file
         run: docker build .
              --build-arg PHP_VERSION="${{ matrix.php_versions }}"
              --tag lep/php:"${{ matrix.php_versions }}"
 
-      - name: Cleanup
+      - name: ✅ Cleanup
         run: docker image rm lep/php:"${{ matrix.php_versions }}"
