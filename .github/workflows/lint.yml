@@ -1,4 +1,4 @@
-name: lint
+name: ✨ lint
 
 on:
   pull_request:
@@ -13,10 +13,10 @@ jobs:
       run:
         shell: bash -leo pipefail {0}
     steps:
-      - name: Check out current proejct revision
+      - name: 💻 Check out current project revision
         uses: actions/checkout@v4
 
-      - name: Run hadolinter
+      - name: 🌷 Run hadolinter
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
