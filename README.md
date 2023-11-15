@@ -17,7 +17,7 @@ LEP comes from the original `LAMP` stack which was based on **L**inux, **A**pach
 ## :card_file_box: Included dependencies
 
 - Ubuntu Jammy
-- Node.js 14.x
+- Node.js 20.x
 - git
 - nginx
 - PHP (7.4)
