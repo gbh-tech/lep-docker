@@ -86,6 +86,8 @@ COPY supervisor /etc/supervisor/conf.d
 RUN sed -i "s/7.4/${PHP_VERSION}/" /etc/nginx/conf.d/site.conf \
 &&  sed -i "s/7.4/${PHP_VERSION}/g" /etc/supervisor/conf.d/php-fpm.conf
 
+# Fix www-data user in nginx.conf file
+RUN sed -i "s/user\s*nginx;/user www-data;/g" /etc/nginx/nginx.conf
 WORKDIR /usr/app
 
 EXPOSE 80
