@@ -25,7 +25,4 @@ jobs:
       - name: 🐋 Build docker file
         run: docker build .
              --build-arg PHP_VERSION="${{ matrix.php_versions }}"
-             --tag lep/php:"${{ matrix.php_versions }}"
-
-      - name: ✅ Cleanup
-        run: docker image rm lep/php:"${{ matrix.php_versions }}"
+             --tag public.ecr.aws/f1n0z7a8/lep:"${{ matrix.php_versions }}"
