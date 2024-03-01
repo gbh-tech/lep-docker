@@ -24,15 +24,30 @@ jobs:
       - name: 💻 Check out current project revision
         uses: actions/checkout@v4
 
-      - name: 🚢 Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: 🚀 Build dockerfile and push to ECR!
-        uses: docker/build-push-action@v5
+      - name: 📝 Configure AWS service account credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          no-cache: true
-          push: true
-          build-args: |
-            PHP_VERSION=${{ matrix.php_versions }}
-          tags: |
-            public.ecr.aws/f1n0z7a8/lep:${{ matrix.php_versions }}
+          aws-region: 'us-east-1'
+          aws-access-key-id: ${{ vars.aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
+
+      - name: 🧑‍💻 Login to Amazon ECR Public
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: 'true'
+          registry-type: public
+
+      - name: 🐋 Build Docker image
+        env:
+          IMAGE_TAG: ${{ matrix.php_versions }}
+        run: >-
+          docker build .
+          -t public.ecr.aws/f1n0z7a8/lep:$IMAGE_TAG
+          --build-arg PHP_VERSION=$IMAGE_TAG
+
+      - name: 🛫 Push image to Amazon ECR
+        env:
+          IMAGE_TAG: ${{ matrix.php_versions }}
+        run: docker push public.ecr.aws/f1n0z7a8/lep:$IMAGE_TAG
+
