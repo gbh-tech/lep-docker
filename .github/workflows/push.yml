@@ -45,9 +45,6 @@ jobs:
           --build-arg PHP_VERSION=${{ matrix.php_versions }}
           --platform linux/amd64 .
 
-      - name: 🐋 Build Docker image
-        run: docker image ls
-
       - name: 🛫 Push image to Amazon ECR
         run: docker push public.ecr.aws/f1n0z7a8/lep:${{ matrix.php_versions }}
 
