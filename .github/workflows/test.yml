@@ -22,6 +22,20 @@ jobs:
       - name: 💻 Check out current proejct revision
         uses: actions/checkout@v4
 
+      - name: 📝 Configure AWS service account credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ vars.aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
+
+      - name: 🧑‍💻 Login to Amazon ECR Public
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: 'true'
+          registry-type: public
+
       - name: 🐋 Build docker file
         run: docker build .
              --build-arg PHP_VERSION="${{ matrix.php_versions }}"

@@ -5,7 +5,6 @@ on:
   push:
     tags:
       - 20[2-9][0-9][0-1][0-9][0-3][0-9]-[0-9][0-9]
-  pull_request:
 
 jobs:
   push_to_docker_hub:
