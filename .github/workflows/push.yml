@@ -27,7 +27,7 @@ jobs:
       - name: 📝 Configure AWS service account credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: 'us-east-1'
+          aws-region: 'us-east-2'
           aws-access-key-id: ${{ vars.aws_access_key_id }}
           aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
 
