@@ -39,15 +39,11 @@ jobs:
           registry-type: public
 
       - name: 🐋 Build Docker image
-        env:
-          IMAGE_TAG: ${{ matrix.php_versions }}
         run: >-
           docker build .
-          -t public.ecr.aws/f1n0z7a8/lep:$IMAGE_TAG
-          --build-arg PHP_VERSION=$IMAGE_TAG
+          -t public.ecr.aws/f1n0z7a8/lep:${{ matrix.php_versions }}
+          --build-arg PHP_VERSION=${{ matrix.php_versions }}
 
       - name: 🛫 Push image to Amazon ECR
-        env:
-          IMAGE_TAG: ${{ matrix.php_versions }}
-        run: docker push public.ecr.aws/f1n0z7a8/lep:$IMAGE_TAG
+        run: docker push public.ecr.aws/f1n0z7a8/lep:${{ matrix.php_versions }}
 
