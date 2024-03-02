@@ -9,9 +9,6 @@ jobs:
   lint:
     runs-on:
       - ubuntu-latest
-    defaults:
-      run:
-        shell: bash -leo pipefail {0}
     steps:
       - name: 💻 Check out current project revision
         uses: actions/checkout@v4
