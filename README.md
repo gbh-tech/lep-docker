@@ -1,25 +1,36 @@
 <!-- omit in toc -->
-# Docker images - LEP
+# gbh.tech - Linux, Nginx PHP (LEP) Docker Image
 
-- [:page\_facing\_up: Description](#page_facing_up-description)
-- [:card\_file\_box: Included dependencies](#card_file_box-included-dependencies)
-- [:bookmark\_tabs: Relevant considerations](#bookmark_tabs-relevant-considerations)
-- [:dart: How To Use](#dart-how-to-use)
-- [:whale2: Build your image](#whale2-build-your-image)
-- [:rocket: Run your app](#rocket-run-your-app)
+[![🧪 Tests](https://github.com/gbh-tech/lep-docker/actions/workflows/test.yml/badge.svg)](https://github.com/gbh-tech/lep-docker/actions/workflows/test.yml)
+[![🚀 Push](https://github.com/gbh-tech/lep-docker/actions/workflows/push.yml/badge.svg)](https://github.com/gbh-tech/lep-docker/actions/workflows/push.yml)
+[![✨ Lint](https://github.com/gbh-tech/lep-docker/actions/workflows/lint.yml/badge.svg)](https://github.com/gbh-tech/lep-docker/actions/workflows/lint.yml)
 
-## :page_facing_up: Description
+<!-- omit in toc -->
+## Content
 
-LEP comes from the original `LAMP` stack which was based on **L**inux, **A**pache, **M**ySQL and **P**HP. LEP is a docker-oriented alternative that uses Nginx in favor Apache and separates the MySQL dependency since it can be configured as a service using docker compose.
+- [📄 Description](#-description)
+- [🗃️ Included dependencies](#️-included-dependencies)
+- [🔖 Relevant considerations](#-relevant-considerations)
+- [🎯 How To Use](#-how-to-use)
+- [🐳 Build your image](#-build-your-image)
+- [🚀 Run your app](#-run-your-app)
 
-> **Note**: This image is **not meant for production** use. It was designed to serve as an auxiliary image for development and testing environments.
+## 📄 Description
 
-## :card_file_box: Included dependencies
+LEP comes from the original `LAMP` stack which was based on **L**inux,
+**A**pache, **M**ySQL and **P**HP. LEP is a docker-oriented alternative
+that uses Nginx in favor Apache and separates the MySQL dependency since it
+can be configured as a service using docker compose.
+
+> **Note**: This image is **not meant for production** use. It was designed
+> to serve as an auxiliary image for development and testing environments.
+
+## 🗃️ Included dependencies
 
 - Ubuntu Jammy
 - Node.js 20.x
-- git
-- nginx
+- Git
+- Nginx
 - PHP (7.4, 8.0, 8.1)
   - php-cli
   - php-curl
@@ -34,13 +45,16 @@ LEP comes from the original `LAMP` stack which was based on **L**inux, **A**pach
   - php-xml
   - php-zip
 
-## :bookmark_tabs: Relevant considerations
+## 🔖 Relevant considerations
 
-- The default user for your web files should be `www-data`. If the permissions of your files are not properly set, you might end up with HTTP 403 errors from the web server.
+- The default user for your web files should be `www-data`.
+  If the permissions of your files are not properly set, you might end up
+  with HTTP 403 errors from the web server.
 
-## :dart: How To Use
+## 🎯 How To Use
 
-To use this image, you should set it as your base image using the `FROM` instruction:
+To use this image, you should set it as your base image using the
+`FROM` instruction:
 
 ```docker
 FROM solucionesgbh/lep:${PHP_VERSION}
@@ -65,7 +79,7 @@ COPY --chown=www-data:www-data .
 CMD ["/usr/bin/supervisord", "--nodaemon", "-c", "/etc/supervisor/supervisord.conf"]
 ```
 
-## :whale2: Build your image
+## 🐳 Build your image
 
 To build your custom image, on your terminal execute the following `docker build` command:
 
@@ -73,7 +87,7 @@ To build your custom image, on your terminal execute the following `docker build
 docker build . -t myapp:myversion
 ```
 
-## :rocket: Run your app
+## 🚀 Run your app
 
 To run your custom container, on your terminal execute the following `docker run` command:
 
