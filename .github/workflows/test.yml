@@ -39,4 +39,4 @@ jobs:
       - name: 🐋 Build docker file
         run: docker build .
              --build-arg PHP_VERSION="${{ matrix.php_versions }}"
-             --tag public.ecr.aws/f1n0z7a8/lep:"${{ matrix.php_versions }}"
+             --tag public.ecr.aws/gbh-tech/lep:"${{ matrix.php_versions }}"

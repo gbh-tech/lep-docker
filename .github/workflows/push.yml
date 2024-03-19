@@ -40,10 +40,10 @@ jobs:
       - name: 🐋 Build Docker image
         run: >-
           docker build
-          --tag public.ecr.aws/f1n0z7a8/lep:${{ matrix.php_versions }}
+          --tag public.ecr.aws/gbh-tech/lep:${{ matrix.php_versions }}
           --build-arg PHP_VERSION=${{ matrix.php_versions }}
           --platform linux/amd64 .
 
       - name: 🛫 Push image to Amazon ECR
-        run: docker push public.ecr.aws/f1n0z7a8/lep:${{ matrix.php_versions }}
+        run: docker push public.ecr.aws/gbh-tech/lep:${{ matrix.php_versions }}
 
