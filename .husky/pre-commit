@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+REGEX="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)-[A-Z]{2,4}-[0-9]{1,5}-[A-Za-z0-9-]+$"
+
+if ! [[ $BRANCH =~ $REGEX ]]; then
+  echo "Error: Your commit was rejected due to an invalid branch name.
+  Branch names should follow the format: 
+    <type>-<project_id>-<issue_number>-<description>
+  Where:
+    - <type> is one of: build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test
+    - <project_id> is a capitalized two to four letter abbreviation of the project
+    - <issue_number> is a numeric identifier of the issue being addressed
+    - <description> is a brief description of the changes
+  Example: feat-RI-123-add-new-feature"
+  exit 1
+fi
