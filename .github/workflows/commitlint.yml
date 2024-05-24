@@ -1,0 +1,38 @@
+name: ✨ Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 💻 Checkout current code ref
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🟢 Configure Node.js on runner
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.tool-versions'
+
+      - name: 📦 Install package dependencies using lockfile
+        run: npm ci
+
+      # Check all commits pushed to this PR
+      - name: 👁️‍🗨️ Validate PR commits with commitlint
+        run: >-
+          npx commitlint
+          --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }}
+          --to ${{ github.event.pull_request.head.sha }}
+          --verbose
+
+      - name: 🔎 Validate PR title with commitlint
+        run: echo "${{ github.event.pull_request.title }}" | npx commitlint

@@ -1,0 +1,26 @@
+name: 🚀 Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 💻 Checkout current pull-request revision code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 💼 Configure Git user
+        run: |
+          git config user.name "gbh-devops-bot"
+          git config user.email "devops@gbh.com.do"
+
+      - name: 📦 Install package dependencies using lockfile
+        run: npm ci
+
+      - name: 🚀 Run new version for production
+        run: npx release-it --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEVOPS_USER_TOKEN }}

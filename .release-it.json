@@ -1,0 +1,30 @@
+{
+  "github": {
+    "release": true,
+    "releaseName": "v${version}"
+  },
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "requireBranch": "main",
+    "tagMatch": "v[0-9]*\\.[0-9]*\\.[0-9]*",
+    "tagName": "v${version}",
+    "getLatestTagFromAllRefs": true,
+    "tagExclude": "*[-]*",
+    "push": true,
+    "requireCommits": true,
+    "release": true,
+    "pushArgs": ["--no-verify", "--follow-tags"],
+    "commitArgs": ["--no-verify"]
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": {
+        "name": "conventionalcommits",
+        "preset": {
+          "name": "conventionalcommits"
+        }
+      },
+      "infile": "CHANGELOG.md"
+    }
+  }
+}
