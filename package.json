@@ -1,6 +1,6 @@
 {
   "name": "lep-docker",
-  "version": "2.0.2",
+  "version": "1.0.0",
   "scripts": {
     "prepare": "husky"
   },
