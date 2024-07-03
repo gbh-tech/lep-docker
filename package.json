@@ -47,9 +47,6 @@
         "--no-verify"
       ]
     },
-    "npm": {
-      "publish": false
-    },
     "plugins": {
       "@release-it/conventional-changelog": {
         "preset": {
