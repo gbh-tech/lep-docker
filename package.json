@@ -11,5 +11,64 @@
     "commitlint": "^19.3.0",
     "husky": "^9.0.11",
     "release-it": "^17.2.0"
+  },
+  "npm": {
+    "publish": false
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "defaultIgnores": true,
+    "rules": {
+      "body-max-line-length": [
+        1,
+        "always"
+      ]
+    }
+  },
+  "release-it": {
+    "github": {
+      "release": true,
+      "releaseName": "v${version}"
+    },
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "tagMatch": "v[0-9]*\\.[0-9]*\\.[0-9]*",
+      "tagName": "v${version}",
+      "getLatestTagFromAllRefs": true,
+      "tagExclude": "*[-]*",
+      "push": true,
+      "release": true,
+      "pushArgs": [
+        "--no-verify",
+        "--follow-tags",
+        "--force"
+      ],
+      "commitArgs": [
+        "--no-verify"
+      ]
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": {
+          "name": "conventionalcommits",
+          "types": [
+            {"type": "feat","section": "Features"},
+            {"type": "fix","section": "Bug Fixes"},
+            {"type": "chore","section": "Miscellaneous"},
+            {"type": "docs","section": "Miscellaneous"},
+            {"type": "style","section": "Miscellaneous"},
+            {"type": "refactor","section": "Miscellaneous"},
+            {"type": "perf","section": "Miscellaneous"},
+            {"type": "test","section": "Miscellaneous"},
+            {"type": "build","section": "Miscellaneous"},
+            {"type": "revert","section": "Miscellaneous"},
+            {"type": "ci","section": "Miscellaneous"}
+          ]
+        },
+        "infile": "CHANGELOG.md"
+      }
+    }
   }
 }
