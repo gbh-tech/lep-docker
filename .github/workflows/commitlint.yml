@@ -26,7 +26,6 @@ jobs:
       - name: 📦 Install package dependencies using lockfile
         run: npm ci
 
-      # Check all commits pushed to this PR
       - name: 👁️‍🗨️ Validate PR commits with commitlint
         run: >-
           npx commitlint
