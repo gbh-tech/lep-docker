@@ -1,12 +1,5 @@
 
 
-## [1.1.1](https://github.com/gbh-tech/lep-docker/compare/v1.1.0...v1.1.1) (2024-07-03)
-
-
-### Miscellaneous
-
-* (DSO-2101) add deploy trigguer ([f36e9fb](https://github.com/gbh-tech/lep-docker/commit/f36e9fbbabd6c6e4c5a8907d00f9eca8d6c1cefd))
-
 ## 1.1.0 (2024-07-03)
 
 
