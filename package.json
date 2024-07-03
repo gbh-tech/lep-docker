@@ -12,9 +12,6 @@
     "husky": "^9.0.11",
     "release-it": "^17.2.0"
   },
-  "npm": {
-    "publish": false
-  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
@@ -48,6 +45,9 @@
       "commitArgs": [
         "--no-verify"
       ]
+    },
+    "npm": {
+      "publish": false
     },
     "plugins": {
       "@release-it/conventional-changelog": {
