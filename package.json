@@ -1,6 +1,6 @@
 {
   "name": "lep-docker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "prepare": "husky"
   },
@@ -54,17 +54,50 @@
         "preset": {
           "name": "conventionalcommits",
           "types": [
-            {"type": "feat","section": "Features"},
-            {"type": "fix","section": "Bug Fixes"},
-            {"type": "chore","section": "Miscellaneous"},
-            {"type": "docs","section": "Miscellaneous"},
-            {"type": "style","section": "Miscellaneous"},
-            {"type": "refactor","section": "Miscellaneous"},
-            {"type": "perf","section": "Miscellaneous"},
-            {"type": "test","section": "Miscellaneous"},
-            {"type": "build","section": "Miscellaneous"},
-            {"type": "revert","section": "Miscellaneous"},
-            {"type": "ci","section": "Miscellaneous"}
+            {
+              "type": "feat",
+              "section": "Features"
+            },
+            {
+              "type": "fix",
+              "section": "Bug Fixes"
+            },
+            {
+              "type": "chore",
+              "section": "Miscellaneous"
+            },
+            {
+              "type": "docs",
+              "section": "Miscellaneous"
+            },
+            {
+              "type": "style",
+              "section": "Miscellaneous"
+            },
+            {
+              "type": "refactor",
+              "section": "Miscellaneous"
+            },
+            {
+              "type": "perf",
+              "section": "Miscellaneous"
+            },
+            {
+              "type": "test",
+              "section": "Miscellaneous"
+            },
+            {
+              "type": "build",
+              "section": "Miscellaneous"
+            },
+            {
+              "type": "revert",
+              "section": "Miscellaneous"
+            },
+            {
+              "type": "ci",
+              "section": "Miscellaneous"
+            }
           ]
         },
         "infile": "CHANGELOG.md"

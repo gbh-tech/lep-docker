@@ -1,0 +1,15 @@
+
+
+## 1.1.0 (2024-07-03)
+
+
+### Features
+
+* (DSO-2078) Implement conventional commits and task file ([#27](https://github.com/gbh-tech/lep-docker/issues/27)) ([b4205a1](https://github.com/gbh-tech/lep-docker/commit/b4205a1c4803b628eb4dea614f6327d4d740984e))
+* Add asdf to base image and use it to install Node.js ([#24](https://github.com/gbh-tech/lep-docker/issues/24)) ([d7dc5ca](https://github.com/gbh-tech/lep-docker/commit/d7dc5cace8ccf33b1870372e097c1489b704f6fe))
+
+
+### Miscellaneous
+
+* (DSO-2101) fix release-it ([5c79be7](https://github.com/gbh-tech/lep-docker/commit/5c79be7dd471605c73f7ed250a9ba334eda8531f))
+* (DSO-2101) update docker image ([#28](https://github.com/gbh-tech/lep-docker/issues/28)) ([cf1a155](https://github.com/gbh-tech/lep-docker/commit/cf1a155bace7f3d9028700930d386e74afeeab81))
