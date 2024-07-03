@@ -1,6 +1,7 @@
 {
   "name": "lep-docker",
   "version": "1.1.1",
+  "private": true,
   "scripts": {
     "prepare": "husky"
   },
@@ -47,8 +48,7 @@
       ]
     },
     "npm": {
-      "publish": false,
-      "private": true
+      "publish": false
     },
     "plugins": {
       "@release-it/conventional-changelog": {
